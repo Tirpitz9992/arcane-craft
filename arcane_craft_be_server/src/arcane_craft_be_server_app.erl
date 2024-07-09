@@ -1,8 +1,3 @@
-%%%-------------------------------------------------------------------
-%% @doc arcane_craft_be_server public API
-%% @end
-%%%-------------------------------------------------------------------
-
 -module(arcane_craft_be_server_app).
 
 -behaviour(application).
@@ -15,4 +10,3 @@ start(_StartType, _StartArgs) ->
 stop(_State) ->
     ok.
 
-%% internal functions
