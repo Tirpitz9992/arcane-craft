@@ -8,7 +8,7 @@
     stdlib
    ]},
   {env,[]},
-  {modules, []},
+  {modules, [arcane_craft_be_server_app, arcane_craft_be_server_sup]},
 
   {licenses, ["Apache-2.0"]},
   {links, []}
