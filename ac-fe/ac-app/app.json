@@ -1,11 +1,14 @@
 {
   "expo": {
-    "name": "arcane-craft-fe-app",
-    "slug": "arcane-craft-fe-app",
+    "name": "ac-app",
+    "slug": "ac-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "packagerOpts": {
+      "host": "192.168.88.198"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

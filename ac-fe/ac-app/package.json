@@ -1,5 +1,5 @@
 {
-  "name": "arcane-craft-fe-app",
+  "name": "ac-app",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -9,16 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@babel/plugin-transform-optional-catch-binding": "^7.24.7",
+    "@expo/metro-runtime": "~3.2.1",
     "expo": "~51.0.20",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.74.3"
+    "react-dom": "18.2.0",
+    "react-native": "0.74.3",
+    "react-native-web": "~0.19.10",
+    "rimraf": "^6.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/react": "~18.0.27",
-    "@types/react-native": "^0.73.0",
-    "typescript": "^4.9.4"
+    "@types/react": "~18.2.45",
+    "typescript": "^5.1.3"
   },
   "private": true
 }
