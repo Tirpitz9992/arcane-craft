@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
-import MainTabNavigator from './components/navigation/BottomNavigation';
 import { Provider as PaperProvider } from 'react-native-paper';
 import themeTIZ from './components/theme/theme';
+import MainStackNavigator from './components/navigation/Stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
     <PaperProvider theme={themeTIZ}>
-      <MainTabNavigator/>
+      <NavigationContainer>
+        <MainStackNavigator/>
+      </NavigationContainer>
     </PaperProvider>
   );
 }

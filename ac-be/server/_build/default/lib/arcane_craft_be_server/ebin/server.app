@@ -1,0 +1,13 @@
+{application,arcane_craft_be_server,
+             [{description,"An OTP application"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {mod,{arcane_craft_be_server_app,[]}},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[arcane_craft_be_server_app,arcane_craft_be_server_sup,
+                        blog_handler,blog_server,blog_storage,db_manager,
+                        server_app,server_sup,task_manager,task_schema,
+                        user_schema]},
+              {licenses,["Apache-2.0"]},
+              {links,[]}]}.

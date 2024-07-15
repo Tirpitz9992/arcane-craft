@@ -1,0 +1,12 @@
+{application,server,
+             [{description,"An OTP application"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {mod,{server_app,[]}},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[blog_handler,blog_server,blog_storage,db_manager,
+                        server_app,server_sup,task_manager,task_schema,
+                        user_schema]},
+              {licenses,["Apache-2.0"]},
+              {links,[]}]}.

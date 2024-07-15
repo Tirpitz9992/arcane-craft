@@ -1,14 +1,14 @@
-{application, arcane_craft_be_server,
+{application, server,
  [{description, "An OTP application"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, {arcane_craft_be_server_app, []}},
+  {mod, {server_app, []}},
   {applications,
    [kernel,
     stdlib
    ]},
   {env,[]},
-  {modules, [arcane_craft_be_server_app, arcane_craft_be_server_sup]},
+  {modules, [server_app, server_sup]},
 
   {licenses, ["Apache-2.0"]},
   {links, []}

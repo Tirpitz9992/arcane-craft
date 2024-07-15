@@ -4,10 +4,11 @@
 -export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
-    {ok, Port} = application:get_env(be_server, port),
+    {ok, Port} = application:get_env(server, port),
     {ok, ListenSocket} = gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
     io:format("Server started on port ~p~n", [Port]),
     Pid = spawn(fun() -> accept(ListenSocket) end),
+    db_manager:start(),
     {ok, Pid}.
 
 stop(_State) ->
