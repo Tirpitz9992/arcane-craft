@@ -252,8 +252,48 @@ Server: Apache/2.4.1 (Unix)
    </html>
    ```
 
-### 自信分分析
 
-我对这个答案的自信分是10/10。HTTP头信息的解析和处理是HTTP协议的基本组成部分，以上解释涵盖了前端服务器和客户端如何处理头信息，并且符合HTTP协议的标准用法。
+回调函数是指在特定事件或条件下被调用的函数。在 Cowboy Rest 中，回调函数用于处理 HTTP 请求的不同阶段。`content_types_provided/2` 是一个回调函数，用于指定服务器可以提供的内容类型。
 
-希望这对你有帮助！如果有任何问题，随时提问。
+### 为什么需要回调函数？
+
+Cowboy Rest 框架通过回调函数来管理 HTTP 请求的生命周期。具体来说，`content_types_provided/2` 回调函数告诉 Cowboy Rest 服务器它可以为请求提供哪些内容类型。在你的例子中，服务器需要告诉客户端它可以返回 JSON 格式的数据。
+
+### 是否需要修改 `server_app.erl`？
+
+不需要修改 `server_app.erl`。你的 `server_app.erl` 文件已经正确设置了 Cowboy 路由和启动逻辑。问题仅在于 `task_handler.erl` 中缺少必要的回调函数。
+
+### 回调函数的作用
+
+`content_types_provided/2` 回调函数的作用是告诉 Cowboy Rest 服务器它可以处理哪些内容类型，并且指定相应的处理函数。在你的例子中，我们指定了 `application/json` 类型，并且将处理函数设为 `handle/2`。
+
+### 示例代码解释
+
+#### `task_handler.erl`
+
+```erlang
+-module(task_handler).
+-export([init/2, content_types_provided/2, handle/2, terminate/3]).
+
+init(Req, _State) ->
+    {cowboy_rest, Req, _State}.
+
+content_types_provided(Req, State) ->
+    {[{"application/json", handle}], Req, State}.
+
+handle(Req, _State) -> 
+    Task = #{title => <<"Learn Erlang">>,
+             date => <<"2023-10-01">>,
+             time => <<"10:00 AM">>,
+             remind => true,
+             tag => <<"Programming">>},
+    Json = jsx:encode(Task),
+    {ok, Req2} = cowboy_req:reply(200,
+                                    #{<<"content-type">> => <<"application/json">>},
+                                    Json,
+                                    Req),
+    {stop, Req2, _State}.
+
+terminate(_Reason, _Req, _State) ->
+    ok.
+```

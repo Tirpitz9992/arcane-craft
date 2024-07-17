@@ -1,27 +1,10 @@
+// WeekView.tsx
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import TodoCard, { TodoCardProps } from '../components/TodoCard';
 import { useTheme } from 'react-native-paper';
-
-const fetchTasksForDate = async (date: string): Promise<TodoCardProps[]> => {
-  return [
-    {
-      title: 'Task 1',
-      date: date,
-      time: '10:00 - 11:00',
-      remind: true,
-      tag: 'Work',
-    },
-    {
-      title: 'Task 2',
-      date: date,
-      time: '14:00 - 15:00',
-      remind: false,
-      tag: 'Personal',
-    },
-  ];
-};
+import { fetchTasksForDate } from '../utils/api'; 
 
 interface DayViewProps {
   date: string;
@@ -33,6 +16,7 @@ const DayView: React.FC<DayViewProps> = ({ date }) => {
   useEffect(() => {
     const loadTasks = async () => {
       const tasks = await fetchTasksForDate(date);
+      //console.log('Fetching tasks for date:', date);
       setTasks(tasks);
     };
     loadTasks();

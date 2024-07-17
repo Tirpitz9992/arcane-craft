@@ -9,6 +9,15 @@ start_link() ->
 
 init([]) ->
     ChildSpecs = [
-        {blog_server, {blog_server, start_link, []}, permanent, 5000, worker, [blog_server]}
-    ],
+        {http_listener, 
+            {cowboy, start_clear, 
+                [http_listener, 
+                    [{port, 8080}], 
+                    #{env => #{dispatch => cowboy_router:compile([{'_', [{"/tasks", task_handler, []}]}])}
+                    }
+                ]}, 
+            permanent, 
+            5000, 
+            worker, 
+            [cowboy]}],
     {ok, { {one_for_one, 5, 10}, ChildSpecs }}.

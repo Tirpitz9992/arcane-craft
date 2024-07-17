@@ -2,23 +2,20 @@
 -behaviour(application).
 
 -export([start/2, stop/1]).
-
 start(_StartType, _StartArgs) ->
     {ok, Port} = application:get_env(server, port),
-    {ok, ListenSocket} = gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
+    Dispatch = cowboy_router:compile([
+        {'_', [
+            {"/tasks", task_handler, []}
+        ]}
+    ]),
+    {ok, _} = cowboy:start_clear(http_listener,
+                                 [{port, Port}],
+                                 #{env => #{dispatch => Dispatch}}),
     io:format("Server started on port ~p~n", [Port]),
-    Pid = spawn(fun() -> accept(ListenSocket) end),
-    db_manager:start(),
-    {ok, Pid}.
+    %db_manager:start(),
+    {ok, self()}.
 
 stop(_State) ->
+    ok = cowboy:stop_listener(http_listener),
     ok.
-
-accept(ListenSocket) ->
-    {ok, Socket} = gen_tcp:accept(ListenSocket),
-    spawn(fun() -> handle(Socket) end),
-    accept(ListenSocket).
-
-handle(Socket) ->
-    gen_tcp:send(Socket, "Hello, World!\n"),
-    gen_tcp:close(Socket).
