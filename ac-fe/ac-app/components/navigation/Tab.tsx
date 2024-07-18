@@ -27,7 +27,7 @@ const MainTabNavigator = () => {
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeScreen as React.ComponentType<any>}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (

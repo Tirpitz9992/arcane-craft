@@ -1,6 +1,7 @@
 -module(task_handler).
 -export([init/2, handle_json/2, terminate/3, content_types_provided/2]).
 
+
 init(Req, _State) ->
     io:format("Request received~n"),
     {cowboy_rest, Req, #{}}.

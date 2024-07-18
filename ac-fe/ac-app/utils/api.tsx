@@ -1,6 +1,16 @@
 import { TodoCardProps } from '../components/TodoCard';
+import { Platform } from 'react-native';
+import axios from 'axios';
 
-const API_URL = 'http://localhost:8080'; 
+const API_URL0 = 'http://localhost:8080'; 
+const API_URL1 = 'http://192.168.88.198:8080';
+
+
+const API_URL = Platform.select({
+  ios: API_URL1,
+  android: API_URL1,
+  default: API_URL0,
+});
 
 export const fetchTasksForDate = async (date: string): Promise<TodoCardProps[]> => {
   try {
@@ -16,5 +26,15 @@ export const fetchTasksForDate = async (date: string): Promise<TodoCardProps[]> 
   } catch (error) {
     console.error('Failed to fetch tasks:', error);
     return [];
+  }
+};
+
+export const createTask = async (task: TodoCardProps) => {
+  try {
+    const response = await axios.post(`${API_URL}/tasks`, task);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating task:', error);
+    throw error;
   }
 };

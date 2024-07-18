@@ -19,5 +19,12 @@ init([]) ->
             permanent, 
             5000, 
             worker, 
-            [cowboy]}],
+            [cowboy]},
+        {db_manager,
+            {db_manager, start_link, []},
+            permanent,
+            5000,
+            worker,
+            [db_manager]}
+    ],
     {ok, { {one_for_one, 5, 10}, ChildSpecs }}.

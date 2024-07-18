@@ -5,6 +5,7 @@
               {mod,{server_app,[]}},
               {applications,[kernel,stdlib,cowboy,jsx]},
               {env,[]},
-              {modules,[server_app,server_sup,task_handler,task_manager]},
+              {modules,[create_task_handler,db_manager,server_app,server_sup,
+                        task_handler,task_manager]},
               {licenses,["Apache-2.0"]},
               {links,[]}]}.
